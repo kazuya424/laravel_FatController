@@ -28,6 +28,7 @@ use App\Http\Requests\CreateBookmarkRequest;
 use App\Bookmark\UseCase\CreateBookmarkUseCase;
 use App\Lib\LinkPreview\LinkPreview;
 use App\Lib\LinkPreview\MockLinkPreview;
+use App\Http\Requests\UpdateBookmarkRequest;
 
 class BookmarkController extends Controller
 {
@@ -161,18 +162,8 @@ class BookmarkController extends Controller
      * @return Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      * @throws ValidationException
      */
-    public function update(Request $request, int $id)
+    public function update(UpdateBookmarkRequest $request, int $id)
     {
-        if (Auth::guest()) {
-            // @note ここの処理はユーザープロフィールでも使われている
-            return redirect('/login');
-        }
-
-        Validator::make($request->all(), [
-            'comment' => 'required|string|min:10|max:1000',
-            'category' => 'required|integer|exists:bookmark_categories,id',
-        ])->validate();
-
         $model = Bookmark::query()->findOrFail($id);
 
         if ($model->can_not_delete_or_edit) {
