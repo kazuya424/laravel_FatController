@@ -28,6 +28,7 @@ class ShowBookmarkListPageUseCaseTest extends TestCase
          * SEOについて
          * ・<title>タグの中身が正しく設定されていること
          * ・<meta description>の中身が正しく設定されていること
+         * 
          */
         SEOTools::shouldReceive('setTitle')->withArgs(['ブックマーク一覧'])->once();
         SEOTools::shouldReceive('setDescription')->withArgs(['技術分野に特化したブックマーク一覧です。みんなが投稿した技術分野のブックマークが投稿順に並んでいます。HTML、CSS、JavaScript、Rust、Goなど、気になる分野のブックマークに絞って調べることもできます'])->once();
